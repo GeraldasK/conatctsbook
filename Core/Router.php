@@ -34,8 +34,6 @@ class Router
             if (class_exists($controller)) {
                 $controller_obj = new $controller();
                 $action = $this->params['action'];
-                $action = str_replace(' ', '', ucwords(str_replace('-', ' ', $action)));
-                $action = lcfirst($action);
 
                 if(is_callable([$controller_obj, $action])) {
                     $controller_obj->$action();
