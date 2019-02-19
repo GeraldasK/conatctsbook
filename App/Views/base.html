@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        .bg-red {
+            background-color: rgb(40, 98, 221);
+        }
+
+        .font-b {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        .check-b {
+            height: 0.75em;
+            width: 0.75em;
+        }
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    {% block navbar %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-red">
+        <div class="container">
+            <a class="navbar-brand" href="/">ContactsBook</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Personal Contacts Book</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+    <header id="header" class="bg-dark text-white-50 pt-2 pb-2 mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <h2><i class="fas fa-address-book"></i> Add new contact</h2>
+                </div>
+                <div class="col-md-7 text-white mt-1 rounded text-center font-b">
+                    <form action="/add-new" method="POST">
+                        <div class="form-row">
+                            <div class="col-3">
+                                <input type="text" class="form-control" name="name" placeholder="Contact Name">
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="lastname" placeholder="Contact Lastname">
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class="form-control" name="phone" placeholder="Phone number">
+                            </div>
+                            <input type="submit" class="btn bg-red ml-1">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="/" class="list-group-item bg-red text-white">
+                            <i class="fas fa-cog"></i> Dashboard
+                        </a>
+                        <a href="/" class="list-group-item text-dark"><i class="fas fa-users"></i>
+                            Total contacts <span class="badge badge-secondary">{{total}}</span></a>
+                        {% if errors is not empty %}
+                        <div class="bg-danger text-center mt-3 rounded p-3 text-white">
+                            {% for error in errors %}
+                            <p>{{ error }} !</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    {% block body %} {% endblock%}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark mt-4">
+        <div class="container text-center text-white pt-4 pb-4">
+            <p>Copyright ContactsBook &copy; 2019</p>
+        </div>
+    </footer>
+    <script src="/assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>
